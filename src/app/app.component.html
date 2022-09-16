@@ -1,0 +1,19 @@
+
+<app-header></app-header>
+<mat-drawer-container class="example-container">
+  <mat-drawer mode="side" opened>
+    <mat-card>
+      <mat-selection-list  [multiple]="false">
+        <mat-list-option *ngFor="let option of options" [value]="option">
+          {{option}}
+        </mat-list-option>
+      </mat-selection-list>
+    </mat-card>
+  </mat-drawer>
+  <mat-drawer-content>
+   
+      <app-my-bookings></app-my-bookings>
+
+
+  </mat-drawer-content>
+</mat-drawer-container>

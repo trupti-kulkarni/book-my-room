@@ -1,0 +1,36 @@
+.example-container{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+mat-form-field{
+    margin:2%;
+}
+
+.example-form-field {
+    margin: 0 8px 16px 0;
+  }
+
+  .example-full-width{
+    width:45%;
+  }
+
+  .example-full-width1{
+    width:30%;
+  }
+
+  button{
+    margin-left: 35%;
+    width: 40%
+  }
+
+  .destinations{
+    margin:1%;
+    width: 40%;
+  }
+
+  ::ng-deep.mat-tab { 
+   display: grid!important;
+   grid-template-columns: auto;
+   
+}
