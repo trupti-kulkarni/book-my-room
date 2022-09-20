@@ -1,32 +1,17 @@
-const {MongoClient} = require('mongodb');
+const express = require('express');
+const cors = require('cors')
 
-const uri = "mongodb+srv://admin:admin@cluster0.0xazb.mongodb.net/?retryWrites=true&w=majority"
-async function main() {
-	// we'll add code here soon
+const app = express()
 
+const port = 3000
 
-    const client = new MongoClient(uri);
-    try {
-        // Connect to the MongoDB cluster
-        await client.connect();
- 
-        // Make the appropriate DB calls
-        await  listDatabases(client);
- 
-    } catch (e) {
-        console.error(e);
-    } finally {
-        await client.close();
-    }
-}
+const routes = require("./routes/record")
+
+app.use(express.urlencoded({ extended: true }))
+
+routes(app);
 
 
-async function listDatabases(client){
-    databasesList = await client.db().admin().listDatabases();
- 
-    console.log("Databases:");
-    databasesList.databases.forEach(db => console.log(` - ${db.name}`));
-};
-
-main().catch(console.error);
-
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+  })
