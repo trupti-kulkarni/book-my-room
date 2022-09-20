@@ -1,6 +1,6 @@
 
 const express = require("express");
-const { getDb } = require("../db/connect");
+const mongoClient = require("../db/connect")
 
 // recordRoutes is an instance of the express router.
 // We use it to define our routes.
@@ -8,12 +8,10 @@ const { getDb } = require("../db/connect");
 const recordRoutes = express.Router();
 
  let routes = (app)=>{
-    recordRoutes.get('/listings',()=>{
-        const dbConnect = getDb();
+    recordRoutes.get('/listings',(req,res)=>{
+        const dbConnect = mongoClient.getDb();
         console.log("db connect is--",dbConnect);
-            dbConnect.collection("hotels")
-      .find({}).limit(50)
-      .toArray(function (err, result) {
+        dbConnect.collection("hotels").find({}).limit(50).toArray(function (err, result) {
         if (err) {
           res.status(400).send("Error fetching listings!");
        } else {
