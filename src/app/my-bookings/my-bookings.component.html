@@ -1,195 +1,206 @@
-<mat-card>
-
-    <div class="example-container">
-        <mat-form-field hintLabel="Max 10 characters" appearance="fill">
-            <mat-label>Search Destination..... </mat-label>
-            <input matInput #input maxlength="10" placeholder="Ex. Goa">
-            <mat-hint align="end">{{input.value?.length || 0}}/10</mat-hint>
-        </mat-form-field>
-
-        <div class="date-picker">
 
 
-            <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>From </mat-label>
-                <input matInput [matDatepicker]="picker">
-                <mat-hint>MM/DD/YYYY</mat-hint>
-                <mat-datepicker-toggle matSuffix [for]="picker">
-                    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-                </mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-
-
-
-            <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>To</mat-label>
-                <input matInput [matDatepicker]="picker1">
-                <mat-hint>MM/DD/YYYY</mat-hint>
-                <mat-datepicker-toggle matSuffix [for]="picker1">
-                    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-                </mat-datepicker-toggle>
-                <mat-datepicker #picker1></mat-datepicker>
-            </mat-form-field>
-
+    <mat-drawer-container >
+      <mat-drawer mode="side" opened>
+        <mat-card class="drawer">
+          <mat-selection-list  [multiple]="false">
+            <mat-list-option *ngFor="let option of options" [value]="option" (click)="optionClicked(option)">
+              {{option}}
+            </mat-list-option>
+          </mat-selection-list>
+        </mat-card>
+      </mat-drawer>
+      <mat-drawer-content>
+       
+        <div *ngIf="selectedOption=='Book My Room'">
+            <mat-card>
+    
+                <div class="example-container">
+                    <form   #bookForm="ngForm">
+                    <mat-form-field hintLabel="Max 10 characters" appearance="fill">
+                        <mat-label>Search Destination..... </mat-label>
+                        <input matInput #input maxlength="10" placeholder="Ex. Goa" required [(ngModel)]="destination" name="cityName">
+                        <mat-hint align="end">{{input.value?.length || 0}}/10</mat-hint>
+                    </mat-form-field>
+            
+                    <div class="date-picker">
+            
+            
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>From </mat-label>
+                            <input matInput [matDatepicker]="picker" required [(ngModel)]="fromDate" name="fromDate">
+                            <mat-hint>MM/DD/YYYY</mat-hint>
+                            <mat-datepicker-toggle matSuffix [for]="picker">
+                                <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                            </mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+            
+            
+            
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>To</mat-label>
+                            <input matInput [matDatepicker]="picker1" required [(ngModel)]="toDate" name="toDate">
+                            <mat-hint>MM/DD/YYYY</mat-hint>
+                            <mat-datepicker-toggle matSuffix [for]="picker1">
+                                <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                            </mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+            
+                    </div>
+                </form>
+            
+                    <div class="rooms">
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>No of Rooms</mat-label>
+                            <select matNativeControl required  [(ngModel)]="req_rooms" name="rooms">
+                                <option *ngFor="let room of rooms" [value]="room">{{room}}</option>
+            
+                            </select>
+                        </mat-form-field>
+            
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>No of people</mat-label>
+                            <select matNativeControl required name="people">
+                                <option *ngFor="let p of people" [value]="p">{{p}}</option>
+            
+                            </select>
+                        </mat-form-field>
+            
+            
+            
+                    </div>
+            
+                 <button mat-raised-button color="primary" (click)="search()"  [disabled]="bookForm.invalid">Search</button>
+            
+                </div>
+            
+            </mat-card>
+            
+            
+            <mat-card>
+                <mat-tab-group mat-align-tabs="start" [dynamicHeight]="true">
+                    <mat-tab label="Beach Vacation">
+                        <mat-grid-list cols="3" >
+                            <mat-grid-tile >
+                                <mat-card >
+                                    <mat-card-content>
+                                        <h3>Maldives</h3>
+                                        <img mat-card-image src="assets/maldives.jpeg"
+                                            alt="Photo of a Shiba Inu">
+                                    </mat-card-content>
+                                </mat-card>
+                            </mat-grid-tile>
+            
+                            <mat-grid-tile >
+                                <mat-card >
+                                    <mat-card-content>
+                                        <h3>Goa</h3>
+                                        <img mat-card-image src="assets/goa.jpeg"
+                                            alt="Photo of a Shiba Inu">
+                                    </mat-card-content>
+                                </mat-card>
+                            </mat-grid-tile>
+            
+                            <mat-grid-tile >
+                                <mat-card >
+                                    <mat-card-content>
+                                        <h3>Gokarna</h3>
+                                        <img mat-card-image src="assets/Gokarna.jpeg"
+                                            alt="Photo of a Shiba Inu">
+                                    </mat-card-content>
+                                </mat-card>
+                            </mat-grid-tile>
+            
+                        </mat-grid-list>
+                    </mat-tab>
+                    <mat-tab label="Weekend Gateways">
+                        <mat-grid-list cols="3" >
+                            <mat-grid-tile >
+                                <mat-card >
+                                    <mat-card-content>
+                                        <h3>Maldives</h3>
+                                        <img mat-card-image src="assets/maldives.jpeg"
+                                            alt="Photo of a Shiba Inu">
+                                    </mat-card-content>
+                                </mat-card>
+                            </mat-grid-tile>
+            
+                            <mat-grid-tile >
+                                <mat-card >
+                                    <mat-card-content>
+                                        <h3>Goa</h3>
+                                        <img mat-card-image src="assets/goa.jpeg"
+                                            alt="Photo of a Shiba Inu">
+                                    </mat-card-content>
+                                </mat-card>
+                            </mat-grid-tile>
+            
+                            <mat-grid-tile >
+                                <mat-card >
+                                    <mat-card-content>
+                                        <h3>Gokarna</h3>
+                                        <img mat-card-image src="assets/Gokarna.jpeg" height=""
+                                            alt="Photo of a Shiba Inu">
+                                    </mat-card-content>
+                                </mat-card>
+                            </mat-grid-tile>
+            
+                        </mat-grid-list>
+                    </mat-tab>
+                    <mat-tab label="Mountain Calling">
+                        <mat-grid-list cols="3" >
+                            <mat-grid-tile >
+                                <mat-card >
+                                    <mat-card-content>
+                                        <h3>Maldives</h3>
+                                        <img mat-card-image src="assets/maldives.jpeg"
+                                            alt="Photo of a Shiba Inu">
+                                    </mat-card-content>
+                                </mat-card>
+                            </mat-grid-tile>
+            
+                            <mat-grid-tile >
+                                <mat-card >
+                                    <mat-card-content>
+                                        <h3>Goa</h3>
+                                        <img mat-card-image src="assets/goa.jpeg"
+                                            alt="Photo of a Shiba Inu">
+                                    </mat-card-content>
+                                </mat-card>
+                            </mat-grid-tile>
+            
+                            <mat-grid-tile >
+                                <mat-card >
+                                    <mat-card-content>
+                                        <h3>Gokarna</h3>
+                                        <img mat-card-image src="assets/Gokarna.jpeg"
+                                            alt="Photo of a Shiba Inu">
+                                    </mat-card-content>
+                                </mat-card>
+                            </mat-grid-tile>
+            
+                        </mat-grid-list>
+                    </mat-tab>
+                </mat-tab-group>
+            </mat-card> 
         </div>
 
-        <div class="rooms">
-            <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>No of Rooms</mat-label>
-                <select matNativeControl required>
-                    <option *ngFor="let room of rooms" [value]="room">{{room}}</option>
-
-                </select>
-            </mat-form-field>
-
-            <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>No of people</mat-label>
-                <select matNativeControl required>
-                    <option *ngFor="let p of people" [value]="p">{{p}}</option>
-
-                </select>
-            </mat-form-field>
-
-
-
+        <div *ngIf="selectedOption=='My Bookings'">
+            <div style=" position: relative;height: 80vh">
+                here we will render my bookings
+            </div>
+           
         </div>
-
-        <button mat-raised-button color="primary">Search</button>
-
-    </div>
-
-</mat-card>
-
-
-<mat-card>
-    <mat-tab-group mat-align-tabs="start" [dynamicHeight]="true">
-        <mat-tab label="Beach Vacation">
-            <mat-grid-list cols="3" >
-                <mat-grid-tile >
-                    <mat-card >
-                        <mat-card-content>
-                            <h3>Maldives</h3>
-                            <img mat-card-image src="assets/maldives.jpeg"
-                                alt="Photo of a Shiba Inu">
-                        </mat-card-content>
-                    </mat-card>
-                </mat-grid-tile>
-
-                <mat-grid-tile >
-                    <mat-card >
-                        <mat-card-content>
-                            <h3>Goa</h3>
-                            <img mat-card-image src="assets/goa.jpeg"
-                                alt="Photo of a Shiba Inu">
-                        </mat-card-content>
-                    </mat-card>
-                </mat-grid-tile>
-
-                <mat-grid-tile >
-                    <mat-card >
-                        <mat-card-content>
-                            <h3>Gokarna</h3>
-                            <img mat-card-image src="assets/Gokarna.jpeg"
-                                alt="Photo of a Shiba Inu">
-                        </mat-card-content>
-                    </mat-card>
-                </mat-grid-tile>
-
-            </mat-grid-list>
-        </mat-tab>
-        <mat-tab label="Weekend Gateways">
-            <mat-grid-list cols="3" >
-                <mat-grid-tile >
-                    <mat-card >
-                        <mat-card-content>
-                            <h3>Maldives</h3>
-                            <img mat-card-image src="assets/maldives.jpeg"
-                                alt="Photo of a Shiba Inu">
-                        </mat-card-content>
-                    </mat-card>
-                </mat-grid-tile>
-
-                <mat-grid-tile >
-                    <mat-card >
-                        <mat-card-content>
-                            <h3>Goa</h3>
-                            <img mat-card-image src="assets/goa.jpeg"
-                                alt="Photo of a Shiba Inu">
-                        </mat-card-content>
-                    </mat-card>
-                </mat-grid-tile>
-
-                <mat-grid-tile >
-                    <mat-card >
-                        <mat-card-content>
-                            <h3>Gokarna</h3>
-                            <img mat-card-image src="assets/Gokarna.jpeg" height=""
-                                alt="Photo of a Shiba Inu">
-                        </mat-card-content>
-                    </mat-card>
-                </mat-grid-tile>
-
-            </mat-grid-list>
-        </mat-tab>
-        <mat-tab label="Mountain Calling">
-            <mat-grid-list cols="3" >
-                <mat-grid-tile >
-                    <mat-card >
-                        <mat-card-content>
-                            <h3>Maldives</h3>
-                            <img mat-card-image src="assets/maldives.jpeg"
-                                alt="Photo of a Shiba Inu">
-                        </mat-card-content>
-                    </mat-card>
-                </mat-grid-tile>
-
-                <mat-grid-tile >
-                    <mat-card >
-                        <mat-card-content>
-                            <h3>Goa</h3>
-                            <img mat-card-image src="assets/goa.jpeg"
-                                alt="Photo of a Shiba Inu">
-                        </mat-card-content>
-                    </mat-card>
-                </mat-grid-tile>
-
-                <mat-grid-tile >
-                    <mat-card >
-                        <mat-card-content>
-                            <h3>Gokarna</h3>
-                            <img mat-card-image src="assets/Gokarna.jpeg"
-                                alt="Photo of a Shiba Inu">
-                        </mat-card-content>
-                    </mat-card>
-                </mat-grid-tile>
-
-            </mat-grid-list>
-        </mat-tab>
-    </mat-tab-group>
-</mat-card>
+    
+    
+      </mat-drawer-content>
+    </mat-drawer-container>
 
 
 
+   
 
-<!-- <mat-card class="destinations">
-              
-    <mat-card-content>
-        <h3>Maldives</h3>
-        <img mat-card-image  height="120px" src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-    </mat-card-content>
-</mat-card>
-<mat-card class="destinations">
-  
-    <mat-card-content>
-        <h3>Goa</h3>
-        <img mat-card-image  height="120px" src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-    </mat-card-content>
-</mat-card>
-<mat-card class="destinations">
-  
-    <mat-card-content>
-        <h3>Gokarna</h3>
-        <img mat-card-image  height="120px" src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-    </mat-card-content>
-</mat-card> -->
+
+ 

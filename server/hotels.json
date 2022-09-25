@@ -1,0 +1,75 @@
+[
+  {
+    "_id": "63244c0d1070b4488ed49e70",
+    "city": "Goa",
+    "hotels": [
+      {
+        "name": "ginger",
+        "rooms": [
+          {
+            "type": "semi-luxury-Non/AC",
+            "guests_allowed": 2,
+            "available_rooms": 5
+          },
+          {
+            "type": "luxury-AC",
+            "guests_allowed": 3,
+            "available_rooms": 5
+          },
+          {
+            "type": "semi-luxury-AC",
+            "guests_allowed": 2,
+            "available_rooms": 5
+          },
+          {
+            "type": "villa",
+            "guests_allowed": 4,
+            "available_rooms": 5
+          }
+        ]
+      },
+      {
+        "name": "lemon-tree",
+        "rooms": [
+          {
+            "type": "semi-luxury-Non/AC",
+            "guests_allowed": 2,
+            "available_rooms": 5
+          },
+          {
+            "type": "luxury-AC",
+            "guests_allowed": 3,
+            "available_rooms": 5
+          },
+          {
+            "type": "semi-luxury-AC",
+            "guests_allowed": 2,
+            "available_rooms": 5
+          },
+          {
+            "type": "villa",
+            "guests_allowed": 4,
+            "available_rooms": 5
+          }
+        ]
+      },
+      {
+        "name": "riva-resort",
+        "rooms": [
+
+          {
+            "type": "luxury-AC",
+            "guests_allowed": 3,
+            "available_rooms": 5
+          },
+
+          {
+            "type": "villa",
+            "guests_allowed": 4,
+            "available_rooms": 10
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -7,5 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'room-booking';
-  options=["Book My Room","My Bookings"]
+  options=["Book My Room","My Bookings"];
+  isLoggedIn:boolean=false
+  
 }

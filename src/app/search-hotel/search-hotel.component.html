@@ -1,1 +1,65 @@
-<p>search-hotel works!</p>
+<!-- <app-header></app-header> -->
+<div class="toolbar">
+    <form #bookForm="ngForm">
+    <mat-form-field appearance="fill">
+        <mat-label>City</mat-label>
+        <input matInput [(ngModel)]="city" name="city">
+      </mat-form-field>
+
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Check_IN </mat-label>
+        <input matInput [matDatepicker]="picker" required [(ngModel)]="fromDate" name="fromDate">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker">
+            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Check_Out </mat-label>
+        <input matInput [matDatepicker]="picker1" required [(ngModel)]="toDate" name="toDate">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker1">
+            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>No of Rooms</mat-label>
+        <select matNativeControl required  [(ngModel)]="req_rooms" name="rooms">
+            <option *ngFor="let room of rooms" [value]="room">{{room}}</option>
+
+        </select>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>No of people</mat-label>
+        <select matNativeControl required name="people">
+            <option *ngFor="let p of people" [value]="p">{{p}}</option>
+
+        </select>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="search()"  [disabled]="bookForm.invalid">Search</button>
+</form>
+
+
+</div>
+
+<h3 style="margin:1%">Search Result:</h3>
+<div class="container">
+    
+    <mat-card *ngFor="let hotel of hotels">
+       <mat-card-header> <h2>{{hotel.hotels.name | uppercase}} </h2> </mat-card-header>
+       <mat-card-content>
+         <p>Room Type : <b> {{hotel.hotels.rooms.type}} </b></p>
+         <p> Available Rooms : {{hotel.hotels.rooms.available_rooms}}</p>
+         <p> Maximum Guests allowed : {{hotel.hotels.rooms.guests_allowed}}</p>
+         <button style="margin-left: 30%; margin-top: 1%;" mat-raised-button color="primary" (click)="book()"  [disabled]="bookForm.invalid">Book This Now</button>
+
+       </mat-card-content>
+    </mat-card>
+</div>

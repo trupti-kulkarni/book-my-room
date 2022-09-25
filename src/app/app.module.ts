@@ -11,6 +11,9 @@ import { MyBookingsComponent } from './my-bookings/my-bookings.component';
 import { MaterialModule } from './material/material.module';
 import { HeaderComponent } from './header/header.component';
 import { ShowOptionsComponent } from './show-options/show-options.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -26,7 +29,9 @@ import { ShowOptionsComponent } from './show-options/show-options.component';
     BrowserModule,
     AppRoutingModule,
     NoopAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

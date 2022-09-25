@@ -1,5 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { BookingService } from '../booking.service';
 
 @Component({
   selector: 'app-my-bookings',
@@ -8,21 +11,40 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class MyBookingsComponent implements OnInit {
 
-  rooms =[1,2,3,4,5]
-  people= [1,2,3,4,5]
-  // tiles: Tile[] = [
-  //   {img: '<img></img>', cols: 1, rows: 1, color: 'lightblue'},
-  //   {img: 'Two', cols: 1, rows: 1, color: 'lightgreen'},
-  //   {img: 'Three', cols: 1, rows: 1, color: 'lightpink'},
-    
-   
-  // ];
-  constructor() { }
+  options=["Book My Room","My Bookings"];
+  rooms =[1,2,3,4,5];
+
+  people= [1,2,3,4,5];
+
+  destination: string=''
+
+  fromDate:Date = new Date();
+
+  toDate:Date = new Date();
+ 
+  req_rooms:number=1;
+  selectedOption:string="Book My Room"
+
+  constructor(private http:HttpClient, private router:Router,private bookSErvice:BookingService) { }
 
   ngOnInit(): void {
+
+    this.toDate.setDate(this.fromDate.getDate() + 1);
   }
 
-}
+  search(){
+  
+    this.router.navigateByUrl('/search')
+  }
+
+  optionClicked(option:string){
+    this.selectedOption = option
+  }
+   
+     
+  }
+
+
 
 
 export interface Tile {
