@@ -5,10 +5,12 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class BookingService {
-  city:string='Goa';
+  city:string='';
   fromDate:Date=new Date();
   toDate:Date = new Date();
   req_rooms:number=1;
+  hotel:string=''
+  req_guest: number=1;
   constructor(private http:HttpClient) { }
 
   public get_details(){
@@ -20,11 +22,13 @@ export class BookingService {
     }
   }
 
-  public set_details(city:string, from_date:Date,toDate:Date,req_rooms:number){
+  public set_details(city:string,from_date:Date,toDate:Date,req_rooms:number,req_guest:number){
     this.city = city;
     this.fromDate= from_date;
     this.toDate=toDate;
-    this.req_rooms=req_rooms
+    this.req_rooms=req_rooms;
+    this.req_guest = req_guest
+
   }
 
   public find_hotels(){
@@ -35,6 +39,16 @@ export class BookingService {
     return this.http.put("http://localhost:3000/update_rooms",{
       "doc_id":id,
       "available_rooms":available_rooms
+      
+    },{
+      responseType: 'text'
+    })
+  }
+
+  public update_myBooking(email:any,hotel:any){
+    return this.http.post("http://localhost:3000/mybooking",{
+      "email":email,
+      "hotel":hotel
       
     },{
       responseType: 'text'

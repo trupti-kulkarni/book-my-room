@@ -37,7 +37,7 @@
 
     <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>No of people</mat-label>
-        <select matNativeControl required name="people">
+        <select matNativeControl required name="people" [(ngModel)]="req_guests">
             <option *ngFor="let p of people" [value]="p">{{p}}</option>
 
         </select>

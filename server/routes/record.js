@@ -1,91 +1,122 @@
-
 const express = require("express");
 const { ObjectId } = require("mongodb");
-const mongoClient = require("../db/connect")
+const mongoClient = require("../db/connect");
 
 // recordRoutes is an instance of the express router.
 // We use it to define our routes.
 // The router will be added as a middleware and will take control of requests starting with path /listings.
 const recordRoutes = express.Router();
 
- let routes = (app)=>{
-    recordRoutes.get('/hotels',(req,res)=>{
-      res.set('Access-Control-Allow-Origin', '*');
-        const dbConnect = mongoClient.getDb();
-        let city = req.query.city;
-        var required_rooms = req.query.rooms
-        //console.log("city is--",city,"rooms are--",required_rooms);
-        const agg = [
-          
-          {
-            '$match': {
-              "city":new RegExp(city, 'i'),
-              'available_rooms':  {'$gte': parseInt(required_rooms)} 
-            }
-          }
-        ];
+let routes = (app) => {
+  recordRoutes.get("/hotels", (req, res) => {
+    //res.set("Access-Control-Allow-Origin", "*");
+    const dbConnect = mongoClient.getDb();
+    let city = req.query.city;
+    var required_rooms = req.query.rooms;
+    //console.log("city is--",city,"rooms are--",required_rooms);
+    const agg = [
+      {
+        $match: {
+          city: new RegExp(city, "i"),
+          available_rooms: { $gte: parseInt(required_rooms) },
+        },
+      },
+    ];
 
-       // console.log("aggregates are--",agg);
-        const coll = dbConnect.collection('hotels');
-        const cursor = coll.aggregate(agg);
-        cursor.toArray(function(err,result){
-          if (err) {
-                res.status(400).send("Error fetching listings!");
-             } else {
-              console.log("result ",result);
-                res.json(result);
-              }
-        });
-        
-      
+    // console.log("aggregates are--",agg);
+    const coll = dbConnect.collection("hotels");
+    const cursor = coll.aggregate(agg);
+    cursor.toArray(function (err, result) {
+      if (err) {
+        res.status(400).send("Error fetching listings!");
+      } else {
+        console.log("result ", result);
+        res.json(result);
+      }
+    });
   });
 
-  recordRoutes.put("/update_rooms",(req,resp)=>{
-    console.log("request string is--",req.body.doc_id);
-  
+  recordRoutes.put("/update_rooms", (req, resp) => {
+    console.log("request string is--", req.body.doc_id);
+
     const myquery = {
-       
-          '_id':ObjectId(req.body.doc_id)
-        
-      }
-    
-    const newvalues ={'$set': {
-      'available_rooms': req.body.available_rooms
-    }
-  }
-  console.log("myquery--",myquery);
-     const dbConnect = mongoClient.getDb();
+      _id: ObjectId(req.body.doc_id),
+    };
 
-     console.log("id is--",req.body.doc_id,"new value is--",req.body.available_rooms);
-     dbConnect.collection("hotels").updateOne(myquery, newvalues, function(err, res) {
-      if (err) throw err;
-      console.log("1 document updated",res);
-      resp.status(200).send("success")
-      // db.close();
-    });
-    
+    const newvalues = {
+      $set: {
+        available_rooms: req.body.available_rooms,
+      },
+    };
+    //console.log("myquery--", myquery);
+    const dbConnect = mongoClient.getDb();
 
-});
- 
-recordRoutes.post("/login",(req,resp)=>{
- let uname = req.body.email;
- let password = req.body.password;
- const dbConnect = mongoClient.getDb();
- const cursor = dbConnect.collection("users").find({"uName":uname,"password":password});
- cursor.toArray(function(err,result){
-  if (err) {
+    dbConnect
+      .collection("hotels")
+      .updateOne(myquery, newvalues, function (err, res) {
+        if (err) throw err;
+        console.log("1 document updated", res);
+        resp.status(200).send("success");
+        // db.close();
+      });
+  });
+
+  recordRoutes.post("/login", (req, resp) => {
+    let uname = req.body.email;
+    let password = req.body.password;
+    const dbConnect = mongoClient.getDb();
+    const cursor = dbConnect
+      .collection("users")
+      .find({ uName: uname, password: password });
+    cursor.toArray(function (err, result) {
+      if (err) {
         resp.status(400).send("Error fetching listings!");
-     } else {
-      console.log("result ",result);
+      } else {
+        console.log("result ", result);
         resp.json(result);
       }
-});
+    });
+  });
 
-})
-    
-  app.use(recordRoutes)
-}
+  recordRoutes.post("/mybooking", (req, resp) => {
+    let uname = req.body.email;
+    let hotel = req.body.hotel;
+    const dbConnect = mongoClient.getDb();
+    const myquery = {
+      uName: uname,
+    };
+
+    const newvalues = {
+       $push: { "hotel": hotel } 
+    };
+    // const cursor = dbConnect.collection("users").find({"uName":uname,"password":password});
+    dbConnect
+      .collection("users")
+      .updateOne(myquery, newvalues, function (err, res) {
+        if (err) throw err;
+        console.log("1 document updated", res);
+        resp.status(200).send("success");
+        // db.close();
+      });
+  });
+
+  recordRoutes.get("/myBookings",(req,res)=>{
+    console.log("req obj we got is--",req);
+    const email = req.query.email;
+    const dbConnect = mongoClient.getDb();
+    console.log("email got is--",email);
+    const cursor = dbConnect.collection("users").find({uName:email});
+    cursor.toArray(function (err, result) {
+      if (err) {
+        res.status(400).send("Error fetching listings!");
+      } else {
+        console.log("result ", result);
+        res.json(result);
+      }
+    });
+  })
+
+  app.use(recordRoutes);
+};
 
 module.exports = routes;
-
-  

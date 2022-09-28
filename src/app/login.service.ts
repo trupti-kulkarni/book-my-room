@@ -5,8 +5,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class LoginService {
-  email:any='';
-  password:any=''
+ public email:any='';
+  public password:any=''
   constructor(private http:HttpClient) { }
 
   public login(email:string, password:string){
@@ -17,5 +17,11 @@ export class LoginService {
       password:password
     },
     {responseType:'text'})
+  }
+
+  public fetchBookings(){
+    console.log("this email is--",this.email);
+    
+    return this.http.get("http://localhost:3000/myBookings?email="+this.email)
   }
 }

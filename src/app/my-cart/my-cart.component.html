@@ -1,5 +1,18 @@
 <div class="container">
-    <mat-card *ngFor="let booking from bookings">
+    <!-- <ng-template *ngFor="let booking of bookings"> -->
 
-    </mat-card>
+    <div *ngFor="let booking of bookings">
+        <mat-card *ngFor="let hotel of booking.hotel">
+            <mat-card-content>
+               
+               <h2> {{hotel.city}}</h2>
+               <b> {{hotel.hotel}}</b>
+               <p>Room Type : {{hotel.room_type}}</p>
+               <p>Guest Allowed : {{hotel.guests_allowed}}</p>
+            </mat-card-content>
+        </mat-card>
+       
+       
+    </div>
+<!-- </ng-template> -->
 </div>

@@ -30,9 +30,11 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(){
-    this.loginService.login(this.loginForm.email,this.loginForm.password).subscribe((resp)=>{
-      console.log("resp got form from login",resp);
-      if(resp){
+    console.log("login form email is--",this.loginForm.get("email").value);
+    
+    this.loginService.login(this.loginForm.get("email").value,this.loginForm.get("password").value).subscribe((resp)=>{
+      console.log("resp got form from login",resp,resp.length);
+      if(resp.length){
         localStorage.setItem('user',this.loginForm.value)
       this.router.navigate(['/bookmyroom'])
       }
@@ -42,7 +44,6 @@ export class LoginComponent implements OnInit {
      }
       
     })
-    localStorage.setItem('user',this.loginForm.value)
-    this.router.navigate(['/bookmyroom'])
+   
   }
 }

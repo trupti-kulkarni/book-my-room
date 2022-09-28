@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from '../login.service';
 
 @Component({
   selector: 'app-my-cart',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MyCartComponent implements OnInit {
   bookings :any[]=[];
-  constructor() { }
+  constructor(private loginService:LoginService) { }
 
   ngOnInit(): void {
+    this.loginService.fetchBookings().subscribe((res:any)=>{
+      this.bookings = res;
+      console.log("bookings are--",this.bookings);
+      
+    })
   }
 
 }
