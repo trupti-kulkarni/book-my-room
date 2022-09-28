@@ -11,7 +11,7 @@ import { MyBookingsComponent } from './my-bookings/my-bookings.component';
 import { MaterialModule } from './material/material.module';
 import { HeaderComponent } from './header/header.component';
 import { ShowOptionsComponent } from './show-options/show-options.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -31,7 +31,8 @@ import { HttpClientModule } from '@angular/common/http';
     NoopAnimationsModule,
     MaterialModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

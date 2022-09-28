@@ -43,8 +43,18 @@ export class SearchHotelComponent implements OnInit {
 
   }
 
-  book(){
-    
+  book(hotel:any){
+    console.log("body is--",hotel._id,"available room is--",hotel.available_rooms);
+    let rooms = hotel.available_rooms-1
+    this.bookService.update_rooms(hotel._id,rooms).subscribe(result=>{
+      console.log("result is--",result);
+      this.search();
+      
+    },
+    (err=>{
+      console.log("error is-",err);
+      
+    }))
   }
 
 }

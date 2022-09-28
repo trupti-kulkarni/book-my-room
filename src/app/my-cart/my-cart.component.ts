@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./my-cart.component.scss']
 })
 export class MyCartComponent implements OnInit {
-
+  bookings :any[]=[];
   constructor() { }
 
   ngOnInit(): void {

@@ -31,5 +31,15 @@ export class BookingService {
    return this.http.get("http://localhost:3000/hotels?city="+this.city+"&rooms="+this.req_rooms)
   }
 
+  public update_rooms(id:any,available_rooms:number){
+    return this.http.put("http://localhost:3000/update_rooms",{
+      "doc_id":id,
+      "available_rooms":available_rooms
+      
+    },{
+      responseType: 'text'
+    })
+  }
+
   
 }
